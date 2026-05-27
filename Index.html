@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Source It Yourself — Import from 1688, Pinduoduo & Taobao</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0D1F3C;
+    --blue: #1A4080;
+    --blue-mid: #2563B0;
+    --blue-light: #4A90D9;
+    --accent: #3B82F6;
+    --cream: #FAF7F2;
+    --off-white: #F0EBE1;
+    --white: #FFFFFF;
+    --gray: #7A8AA0;
+    --text-dark: #0D1F3C;
+    --border: rgba(37,99,176,0.18);
+  }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+background: var(–cream);
+color: var(–text-dark);
+font-family: ‘DM Sans’, sans-serif;
+font-size: 16px;
+line-height: 1.6;
+overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+position: relative;
+background: var(–navy);
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+padding: 80px 24px 70px;
+overflow: hidden;
+}
+
+.hero::before {
+content: ‘’;
+position: absolute;
+top: -180px; left: 50%;
+transform: translateX(-50%);
+width: 900px; height: 700px;
+background: radial-gradient(ellipse, rgba(74,144,217,0.22) 0%, transparent 70%);
+pointer-events: none;
+}
+
+.hero::after {
+content: ‘’;
+position: absolute;
+bottom: 0; left: 0; right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(–blue-light), transparent);
+}
+
+.badge {
+display: inline-block;
+background: rgba(74,144,217,0.18);
+border: 1px solid rgba(74,144,217,0.4);
+color: #93C5FD;
+font-family: ‘Syne’, sans-serif;
+font-size: 11px;
+font-weight: 700;
+letter-spacing: 3px;
+text-transform: uppercase;
+padding: 8px 22px;
+border-radius: 100px;
+margin-bottom: 32px;
+animation: fadeUp 0.6s ease both;
+}
+
+.hero-title {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(72px, 14vw, 150px);
+line-height: 0.9;
+letter-spacing: 2px;
+color: var(–white);
+animation: fadeUp 0.7s ease 0.1s both;
+}
+
+.hero-title span {
+color: var(–blue-light);
+display: block;
+}
+
+.hero-sub {
+font-family: ‘Syne’, sans-serif;
+font-size: clamp(13px, 2.2vw, 17px);
+color: rgba(255,255,255,0.55);
+margin-top: 20px;
+letter-spacing: 1px;
+animation: fadeUp 0.7s ease 0.2s both;
+}
+
+.hero-desc {
+max-width: 520px;
+margin: 28px auto 0;
+font-size: 17px;
+color: rgba(255,255,255,0.75);
+line-height: 1.75;
+animation: fadeUp 0.7s ease 0.3s both;
+}
+
+.price-tag {
+margin: 40px auto 0;
+animation: fadeUp 0.7s ease 0.4s both;
+}
+
+.price-tag .amount {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(52px, 9vw, 90px);
+color: #93C5FD;
+line-height: 1;
+}
+
+.price-tag .note {
+font-size: 13px;
+color: rgba(255,255,255,0.4);
+margin-top: 4px;
+letter-spacing: 1px;
+}
+
+.cta-btn {
+display: inline-block;
+margin-top: 36px;
+background: var(–blue-mid);
+color: var(–white);
+font-family: ‘Syne’, sans-serif;
+font-weight: 800;
+font-size: 15px;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+text-decoration: none;
+padding: 20px 52px;
+border-radius: 6px;
+transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+box-shadow: 0 0 40px rgba(37,99,176,0.45);
+animation: fadeUp 0.7s ease 0.5s both;
+}
+
+.cta-btn:hover {
+background: var(–blue-light);
+transform: translateY(-3px);
+box-shadow: 0 8px 40px rgba(74,144,217,0.45);
+}
+
+.scroll-hint {
+margin-top: 52px;
+font-size: 11px;
+color: rgba(255,255,255,0.3);
+letter-spacing: 2px;
+text-transform: uppercase;
+animation: fadeUp 0.7s ease 0.6s both;
+}
+
+.scroll-hint span {
+display: block;
+margin-top: 8px;
+font-size: 20px;
+animation: bounce 1.5s infinite;
+}
+
+/* ── IMAGINE ── */
+.imagine {
+background: var(–white);
+padding: 100px 24px;
+}
+
+.imagine-inner {
+max-width: 720px;
+margin: 0 auto;
+text-align: center;
+}
+
+.section-label {
+font-family: ‘Syne’, sans-serif;
+font-size: 11px;
+font-weight: 700;
+letter-spacing: 4px;
+text-transform: uppercase;
+color: var(–blue-mid);
+margin-bottom: 20px;
+}
+
+.imagine-text {
+font-family: ‘Syne’, sans-serif;
+font-size: clamp(22px, 4vw, 34px);
+font-weight: 700;
+line-height: 1.4;
+color: var(–navy);
+}
+
+.imagine-text em {
+color: var(–blue-mid);
+font-style: normal;
+}
+
+.imagine-body {
+margin-top: 28px;
+font-size: 17px;
+color: #4A5568;
+line-height: 1.85;
+}
+
+/* ── FOR WHO ── */
+.for-who {
+background: var(–navy);
+padding: 90px 24px;
+}
+
+.for-who-inner {
+max-width: 900px;
+margin: 0 auto;
+text-align: center;
+}
+
+.section-title {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(42px, 7vw, 72px);
+letter-spacing: 2px;
+color: var(–white);
+margin-bottom: 48px;
+}
+
+.section-title span { color: var(–blue-light); }
+
+.section-title-dark {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(38px, 6vw, 66px);
+letter-spacing: 2px;
+color: var(–navy);
+margin-bottom: 48px;
+text-align: center;
+}
+
+.section-title-dark span { color: var(–blue-mid); }
+
+.cards-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 16px;
+}
+
+.card {
+background: rgba(255,255,255,0.05);
+border: 1px solid rgba(74,144,217,0.2);
+border-radius: 10px;
+padding: 28px 22px;
+text-align: left;
+transition: border-color 0.2s, transform 0.2s, background 0.2s;
+}
+
+.card:hover {
+border-color: var(–blue-light);
+background: rgba(74,144,217,0.08);
+transform: translateY(-4px);
+}
+
+.card-icon { font-size: 28px; margin-bottom: 14px; }
+
+.card-text {
+font-size: 15px;
+color: rgba(255,255,255,0.72);
+line-height: 1.65;
+}
+
+/* ── WHAT YOU LEARN ── */
+.learn {
+background: var(–cream);
+padding: 100px 24px;
+}
+
+.learn-inner {
+max-width: 860px;
+margin: 0 auto;
+}
+
+.learn-list { margin-top: 48px; }
+
+.learn-item {
+display: flex;
+align-items: flex-start;
+gap: 22px;
+padding: 28px 0;
+border-bottom: 1px solid #E2E8F0;
+opacity: 0;
+transform: translateX(-20px);
+transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.learn-item.visible { opacity: 1; transform: translateX(0); }
+
+.learn-num {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 44px;
+color: var(–blue-mid);
+line-height: 1;
+min-width: 50px;
+}
+
+.learn-content h3 {
+font-family: ‘Syne’, sans-serif;
+font-size: 18px;
+font-weight: 700;
+color: var(–navy);
+margin-bottom: 6px;
+}
+
+.learn-content p {
+font-size: 15px;
+color: #64748B;
+line-height: 1.65;
+}
+
+/* ── TESTIMONIALS ── */
+.testimonials {
+background: var(–white);
+padding: 90px 24px;
+}
+
+.testi-inner {
+max-width: 960px;
+margin: 0 auto;
+text-align: center;
+}
+
+.testi-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+gap: 20px;
+margin-top: 52px;
+text-align: left;
+}
+
+.testi-card {
+background: var(–cream);
+border: 1px solid #E2EAF4;
+border-radius: 12px;
+padding: 32px 26px 28px;
+position: relative;
+transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.testi-card:hover {
+box-shadow: 0 8px 32px rgba(37,99,176,0.12);
+transform: translateY(-3px);
+}
+
+.testi-quote-mark {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: 64px;
+color: var(–blue-mid);
+line-height: 1;
+opacity: 0.25;
+margin-bottom: 4px;
+}
+
+.testi-text {
+font-size: 15px;
+color: #334155;
+line-height: 1.75;
+font-style: italic;
+}
+
+.testi-name {
+margin-top: 18px;
+font-family: ‘Syne’, sans-serif;
+font-size: 12px;
+font-weight: 700;
+color: var(–blue-mid);
+letter-spacing: 1.5px;
+text-transform: uppercase;
+}
+
+.testi-stars {
+color: #F59E0B;
+font-size: 14px;
+margin-bottom: 10px;
+}
+
+/* ── FINAL CTA ── */
+.final-cta {
+background: var(–navy);
+padding: 120px 24px;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
+
+.final-cta::before {
+content: ‘’;
+position: absolute;
+top: 50%; left: 50%;
+transform: translate(-50%, -50%);
+width: 700px; height: 500px;
+background: radial-gradient(ellipse, rgba(74,144,217,0.15) 0%, transparent 70%);
+pointer-events: none;
+}
+
+.final-cta .big-text {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(48px, 9vw, 110px);
+line-height: 0.95;
+color: var(–white);
+margin-bottom: 24px;
+}
+
+.final-cta .big-text span { color: var(–blue-light); }
+
+.final-cta .sub {
+font-size: 17px;
+color: rgba(255,255,255,0.6);
+max-width: 460px;
+margin: 0 auto 20px;
+line-height: 1.7;
+}
+
+.final-price {
+font-family: ‘Bebas Neue’, sans-serif;
+font-size: clamp(52px, 8vw, 88px);
+color: #93C5FD;
+margin-bottom: 36px;
+line-height: 1;
+}
+
+/* ── FOOTER ── */
+footer {
+background: #060F1E;
+padding: 32px 24px;
+text-align: center;
+font-size: 13px;
+color: rgba(255,255,255,0.3);
+}
+
+footer a { color: var(–blue-light); text-decoration: none; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(24px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+0%, 100% { transform: translateY(0); }
+50%       { transform: translateY(6px); }
+}
+
+@media (max-width: 600px) {
+.cta-btn { padding: 18px 32px; font-size: 13px; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="badge">5-Day Live Class · ₦10,000 Only</div>
+  <h1 class="hero-title">Source It<span>Yourself.</span></h1>
+  <p class="hero-sub">The step-by-step guide to importing from 1688, Pinduoduo & Taobao</p>
+  <p class="hero-desc">No agent. No middleman. No confusion. Just you, your phone, and everything you need to import like you've been doing it for years.</p>
+  <div class="price-tag">
+    <div class="amount">₦10,000</div>
+    <div class="note">One payment · Lifetime access</div>
+  </div>
+  <a href="https://selar.com/19lf970689" class="cta-btn" target="_blank">Get Instant Access →</a>
+  <div class="scroll-hint">Keep reading<span>↓</span></div>
+</section>
+
+<!-- IMAGINE -->
+
+<section class="imagine">
+  <div class="imagine-inner">
+    <div class="section-label">Picture This</div>
+    <p class="imagine-text">You open 1688. You find what you want. You pay for it — <em>no stress, no confusion, no asking anybody for help.</em></p>
+    <p class="imagine-body">
+      Your order is placed. Your shipment is on the way. And you did it all by yourself.<br><br>
+      No more screenshotting and sending to someone. No more "please help me order this." No more feeling like importing is for people who already know people.<br><br>
+      Just you, your phone, and the knowledge to make it happen.
+    </p>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+
+<section class="for-who">
+  <div class="for-who-inner">
+    <div class="section-label" style="color:#93C5FD;">This Is For You If…</div>
+    <h2 class="section-title">Sound <span>Familiar?</span></h2>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">😤</div>
+        <p class="card-text">You've opened 1688 before, seen everything in Chinese and immediately closed the app.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💸</div>
+        <p class="card-text">You don't know how to make payments from Nigeria to Chinese platforms without losing money.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🙋</div>
+        <p class="card-text">You keep relying on someone else to order for you — and you're tired of it.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⏳</div>
+        <p class="card-text">You planned to start importing this year but you still haven't placed your first order.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU LEARN -->
+
+<section class="learn">
+  <div class="learn-inner">
+    <div style="text-align:center;">
+      <div class="section-label">The Curriculum</div>
+      <div class="section-title-dark">What You'll <span>Learn</span></div>
+    </div>
+    <div class="learn-list">
+      <div class="learn-item">
+        <div class="learn-num">01</div>
+        <div class="learn-content">
+          <h3>Navigating the Platforms</h3>
+          <p>1688, Pinduoduo & Taobao — how to move around them, search for products, and find the best suppliers without speaking a word of Chinese.</p>
+        </div>
+      </div>
+      <div class="learn-item">
+        <div class="learn-num">02</div>
+        <div class="learn-content">
+          <h3>Making Payments from Nigeria</h3>
+          <p>Exactly how to pay on Chinese platforms from Nigeria — no stress, no middleman eating your money.</p>
+        </div>
+      </div>
+      <div class="learn-item">
+        <div class="learn-num">03</div>
+        <div class="learn-content">
+          <h3>Placing Your Order</h3>
+          <p>Step by step — from cart to confirmation. You'll know exactly what to click, what to fill, and what to watch out for.</p>
+        </div>
+      </div>
+      <div class="learn-item">
+        <div class="learn-num">04</div>
+        <div class="learn-content">
+          <h3>Shipping & Tracking</h3>
+          <p>How to get your goods from China to your doorstep — and how to track every step of the journey.</p>
+        </div>
+      </div>
+      <div class="learn-item">
+        <div class="learn-num">05</div>
+        <div class="learn-content">
+          <h3>Everything In Between</h3>
+          <p>All the little things nobody tells you — the tips, the traps, the shortcuts. Everything you need to import with full confidence.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+
+<section class="testimonials">
+  <div class="testi-inner">
+    <div class="section-label">Real Results</div>
+    <div class="section-title-dark">What They're <span>Saying</span></div>
+    <div class="testi-grid">
+
+```
+  <div class="testi-card">
+    <div class="testi-stars">★★★★★</div>
+    <div class="testi-quote-mark">"</div>
+    <p class="testi-text">My goods from China just landed today!!! I can't even explain how excited I am right now! I actually did it — I faced my fear, trusted the process, and everything came through successfully! For anyone still scared or doubting themselves… please don't give up. If I can overcome that fear and get my goods safely, YOU CAN TOO.</p>
+    <div class="testi-name">Fola — Mentee</div>
+  </div>
+
+  <div class="testi-card">
+    <div class="testi-stars">★★★★★</div>
+    <div class="testi-quote-mark">"</div>
+    <p class="testi-text">I went to pick up my goods — coach, my first ever goods from China, all shipped by myself! 🎉</p>
+    <div class="testi-name">Steph's Variety Store — Mentee</div>
+  </div>
+
+  <div class="testi-card">
+    <div class="testi-stars">★★★★★</div>
+    <div class="testi-quote-mark">"</div>
+    <p class="testi-text">My fifth time ordering from China 🤩 @Allneedsimports thank you!</p>
+    <div class="testi-name">Eyinju Accessories — Mentee</div>
+  </div>
+
+  <div class="testi-card">
+    <div class="testi-stars">★★★★★</div>
+    <div class="testi-quote-mark">"</div>
+    <p class="testi-text">My goods done land o 🎉🎉🎉 thank u our teacher!</p>
+    <div class="testi-name">Vicky's Mentee</div>
+  </div>
+
+  <div class="testi-card">
+    <div class="testi-stars">★★★★★</div>
+    <div class="testi-quote-mark">"</div>
+    <p class="testi-text">Hi everyone, my first goods from China, shipped by me, has landed… appreciation goes to my coach for putting me through 💕</p>
+    <div class="testi-name">HaLimart — Mentee</div>
+  </div>
+
+  <div class="testi-card">
+    <div class="testi-stars">★★★★★</div>
+    <div class="testi-quote-mark">"</div>
+    <p class="testi-text">Good morning everyone 🤩 I just got my imported items to my location yesterday! A very special thanks to our amazing coach @Allneedsimports 🌸 you're an excellent instructor 🔥</p>
+    <div class="testi-name">Student — Mentee</div>
+  </div>
+
+  <div class="testi-card">
+    <div class="testi-stars">★★★★★</div>
+    <div class="testi-quote-mark">"</div>
+    <p class="testi-text">My first importation don land ooo 🎊🎊🎊</p>
+    <div class="testi-name">Angela — Mentee</div>
+  </div>
+
+</div>
+```
+
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+
+<section class="final-cta">
+  <div class="big-text">Stop Waiting.<br><span>Start Importing.</span></div>
+  <p class="sub">Everything you need to import by yourself — start to finish. One class. One payment. No confusion.</p>
+  <div class="final-price">₦10,000</div>
+  <a href="https://selar.com/19lf970689" class="cta-btn" target="_blank">Yes, I Want This →</a>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <p>By <strong style="color:rgba(255,255,255,0.5)">Roselyn Njiraan</strong> &nbsp;·&nbsp; <a href="https://selar.com/19lf970689" target="_blank">Secure Checkout on Selar →</a></p>
+</footer>
+
+<script>
+  const items = document.querySelectorAll('.learn-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.15 });
+  items.forEach(item => observer.observe(item));
+</script>
+
+</body>
+</html>
